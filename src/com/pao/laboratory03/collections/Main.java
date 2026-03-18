@@ -48,9 +48,53 @@ package com.pao.laboratory03.collections;
  * Studenți la PAOJ: [Ana, Mihai, Ion]
  * Studenți la BD (actualizat): [Ana, Elena, George]
  */
+import java.util.*;
+
+
 public class Main {
     public static void main(String[] args) {
-        // TODO: implementează cele 3 părți de mai sus
+
+        System.out.println("=== PARTEA A: HashMap — frecventa cuvintelor ===");
+
+        String[] words = {"java", "python", "java", "c++", "python", "java", "rust", "c++", "go"};
+
+        HashMap<String, Integer> frecventa = new HashMap<>();
+        for (String word : words) {
+            frecventa.put(word, frecventa.getOrDefault(word, 0) + 1);
+        }
+
+        System.out.println("Frecventa: " + frecventa);
+
+        System.out.println("Contine 'rust'? " + frecventa.containsKey("rust"));
+
+        System.out.println("Chei: " + frecventa.keySet());
+        System.out.println("Valori: " + frecventa.values());
+
+        for (Map.Entry<String, Integer> entry : frecventa.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+
+        //partea B
+        System.out.println("\n=== PARTEA B: TreeMap — sortare automata ===");
+
+        TreeMap<String, Integer> sortat = new TreeMap<>(frecventa);
+
+        System.out.println("Sortat: " + sortat);
+        System.out.println("Prima cheie: " + sortat.firstKey());
+        System.out.println("Ultima cheie: " + sortat.lastKey());
+
+        //partea C
+        System.out.println("\n=== PARTEA C: Map cu obiecte ===");
+
+        HashMap<String, List<String>> materii = new HashMap<>();
+        materii.put("PAOJ", new ArrayList<>(Arrays.asList("Ana", "Mihai", "Ion")));
+        materii.put("BD", new ArrayList<>(Arrays.asList("Ana", "Elena")));
+
+        System.out.println("Studenti la PAOJ: " + materii.get("PAOJ"));
+
+        materii.get("BD").add("George");
+        System.out.println("Studenti la BD (actualizat): " + materii.get("BD"));
     }
 }
+
 
