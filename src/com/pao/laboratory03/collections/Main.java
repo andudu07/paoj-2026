@@ -1,5 +1,5 @@
 package com.pao.laboratory03.collections;
-
+import java.util.Locale;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.TreeSet;
  */
 public class Main {
     public static void main(String[] args) {
-
+        Locale.setDefault(Locale.US);
         // ArrayList — ordonat, permite duplicate, acces prin index
         System.out.println("=== 1. ArrayList ===");
         List<String> list = new ArrayList<>();
