@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    // State constants
     private static final int INIT = 0;
     private static final int AUTH = 1;
     private static final int OPEN = 2;
@@ -23,7 +22,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         List<String> lines = new ArrayList<>();
 
-        // Read all non‑empty lines
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
             if (!line.isEmpty()) {
@@ -46,7 +44,6 @@ public class Main {
 
         String cmd = tokens[0];
 
-        // --- Unknown command ---
         switch (cmd) {
             case "AUTH": return handleAuth(tokens);
             case "OPEN": return handleOpen(tokens);
@@ -58,18 +55,14 @@ public class Main {
         }
     }
 
-    // ---- Command handlers ----
 
     private String handleAuth(String[] tokens) {
-        // AUTH needs exactly 2 tokens
         if (tokens.length != 2) {
             return "ERR E_PARSE AUTH";
         }
-        // State check: any state except CLOSED is allowed
         if (state == CLOSED) {
             return "ERR E_STATE CLOSED";
         }
-        // Re‑auth: reset history and go to AUTH
         historyCount = 0;
         state = AUTH;
         return "OK AUTH user=" + tokens[1];
@@ -93,7 +86,6 @@ public class Main {
     }
 
     private String handleSend(String commandLine, String[] tokens) {
-        // Need at least command + payload
         if (tokens.length < 2) {
             return "ERR E_PARSE SEND";
         }
