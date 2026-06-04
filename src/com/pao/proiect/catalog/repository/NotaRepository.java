@@ -129,7 +129,7 @@ public class NotaRepository implements Repository<NotaDb, Long> {
     }
 
     /**
-     * JOIN #3 — media fiecarui student la o materie data.
+     * JOIN #3 - media fiecarui student la o materie data.
      * Returneaza String[] cu: [prenume+nume student, grupa, medie]
      */
     public List<String[]> mediePeStudentiLaMaterie(long materieId) throws SQLException {

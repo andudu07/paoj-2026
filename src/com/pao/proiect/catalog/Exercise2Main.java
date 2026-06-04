@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Exercise 2 Main — demonstreaza:
  *  - CRUD complet pentru 4 entitati
  *  - ≥1 tranzactie JDBC explicita cu commit/rollback
  *  - ≥3 interogari SQL cu JOIN
@@ -27,9 +26,7 @@ public class Exercise2Main {
         NotaRepository     notRepo = new NotaRepository();
 
         try {
-            // ============================================================
-            // ACTIUNEA 1 — Adauga profesori
-            // ============================================================
+            // ACTIUNEA 1 - Adauga profesori
             System.out.println("\n=== ACTIUNEA 1: Adauga profesori ===");
             ProfesorDb p1 = new ProfesorDb("Ionescu", "Mihai", "m.ionescu@univ.ro",
                                            "Prof. dr.", "Informatica");
@@ -41,9 +38,7 @@ public class Exercise2Main {
             System.out.println("Salvat: " + p1);
             System.out.println("Salvat: " + p2);
 
-            // ============================================================
-            // ACTIUNEA 2 — Adauga studenti
-            // ============================================================
+            // ACTIUNEA 2 - Adauga studenti
             System.out.println("\n=== ACTIUNEA 2: Adauga studenti ===");
             StudentDb s1 = new StudentDb("Marin",      "Ana",   "ana@stud.ro",   "331", 3);
             StudentDb s2 = new StudentDb("Gheorghe",   "Radu",  "radu@stud.ro",  "331", 3);
@@ -56,9 +51,9 @@ public class Exercise2Main {
                     + s1.getId() + ", " + s2.getId() + ", "
                     + s3.getId() + ", " + s4.getId());
 
-            // ============================================================
-            // ACTIUNEA 3 — Adauga materii (cu JOIN: materie -> profesor)
-            // ============================================================
+
+            // ACTIUNEA 3 - Adauga materii (cu JOIN: materie -> profesor)
+
             System.out.println("\n=== ACTIUNEA 3: Adauga materii ===");
             MaterieDb m1 = new MaterieDb("INFO201", "Programare Orientata pe Obiecte",
                                          6, p1.getId());
@@ -68,18 +63,14 @@ public class Exercise2Main {
             audit.log("ADAUGA_MATERIE");                           // actiune 3
             System.out.println("Materii salvate: " + m1 + ", " + m2);
 
-            // ============================================================
-            // ACTIUNEA 4 — Listeaza toate materiile
-            // ============================================================
+            // ACTIUNEA 4 - Listeaza toate materiile
             System.out.println("\n=== ACTIUNEA 4: Listeaza materii ===");
             List<MaterieDb> toateMateriile = matRepo.findAll();
             toateMateriile.forEach(m -> System.out.println("  " + m));
             audit.log("LISTEAZA_MATERII");                         // actiune 4
 
-            // ============================================================
             // ACTIUNEA 5 — Tranzactie: adauga note pentru s1 la m1
-            //              Daca una esueaza, toate se rollback.
-            // ============================================================
+            //              Daca una esueaza, toate fac rollback
             System.out.println("\n=== ACTIUNEA 5: Tranzactie — adauga note ===");
             Connection conn = DatabaseConnection.getInstance().getConnection();
             conn.setAutoCommit(false);                // incepem tranzactia
@@ -98,12 +89,12 @@ public class Exercise2Main {
                 notRepo.save(n4); notRepo.save(n5); notRepo.save(n6);
                 notRepo.save(n7);
 
-                conn.commit();                        // succes — commit
+                conn.commit();                        // succes - commit
                 System.out.println("Tranzactie COMMIT — 7 note salvate.");
                 audit.log("ADAUGA_NOTE_TRANZACTIE");             // actiune 5
 
             } catch (SQLException ex) {
-                conn.rollback();                      // esec — rollback
+                conn.rollback();                      // esec - rollback
                 System.err.println("Tranzactie ROLLBACK: " + ex.getMessage());
                 audit.log("ROLLBACK_NOTE");
                 throw ex;
@@ -111,9 +102,9 @@ public class Exercise2Main {
                 conn.setAutoCommit(true);             // restauram modul normal
             }
 
-            // ============================================================
-            // ACTIUNEA 6 — JOIN #1: materiile unui profesor
-            // ============================================================
+
+            // ACTIUNEA 6 - JOIN #1: materiile unui profesor
+
             System.out.println("\n=== ACTIUNEA 6: JOIN — Materiile prof. Ionescu ===");
             List<MaterieDb> materiiP1 = matRepo.findByProfesor(p1.getId());
             materiiP1.forEach(m ->
@@ -121,9 +112,8 @@ public class Exercise2Main {
                         m.getCod(), m.getDenumire(), m.getCredite()));
             audit.log("LISTEAZA_MATERII_PROFESOR");               // actiune 6
 
-            // ============================================================
-            // ACTIUNEA 7 — JOIN #2: notele unui student cu detalii
-            // ============================================================
+            // ACTIUNEA 7 - JOIN #2: notele unui student cu detalii
+
             System.out.println("\n=== ACTIUNEA 7: JOIN — Notele lui " + s1.getPrenume() + " " + s1.getNume() + " ===");
             List<String[]> noteAna = notRepo.findNoteCuDetalii(s1.getId());
             noteAna.forEach(row ->
@@ -131,9 +121,8 @@ public class Exercise2Main {
                         row[0], row[1], row[2], row[3], row[4]));
             audit.log("VIZUALIZEAZA_NOTE_STUDENT");               // actiune 7
 
-            // ============================================================
-            // ACTIUNEA 8 — JOIN #3: media studentilor la o materie
-            // ============================================================
+            // ACTIUNEA 8 - JOIN #3: media studentilor la o materie
+
             System.out.println("\n=== ACTIUNEA 8: JOIN — Medii la " + m1.getDenumire() + " ===");
             List<String[]> medii = notRepo.mediePeStudentiLaMaterie(m1.getId());
             medii.forEach(row ->
@@ -141,9 +130,8 @@ public class Exercise2Main {
                         row[0], row[1], row[2]));
             audit.log("CALCULEAZA_MEDII_MATERIE");                // actiune 8
 
-            // ============================================================
-            // ACTIUNEA 9 — Update si findById
-            // ============================================================
+            // ACTIUNEA 9 - Update si findById
+
             System.out.println("\n=== ACTIUNEA 9: Update student ===");
             s1.setGrupa("333");
             s1.setEmail("ana.marin@stud.ro");
@@ -152,22 +140,20 @@ public class Exercise2Main {
             System.out.println("Dupa update: " + s1Updated);
             audit.log("UPDATE_STUDENT");                          // actiune 9
 
-            // ============================================================
-            // ACTIUNEA 10 — Stergere student (cu curatare note prin FK)
-            // ============================================================
+            // ACTIUNEA 10 - Stergere student (cu curatare note prin FK)
+
             System.out.println("\n=== ACTIUNEA 10: Sterge student ===");
             System.out.println("Studenti inainte: " + stuRepo.findAll().size());
 
-            // Intai stergem notele (FK constraint), apoi studentul
+            // Intai stergem notele, apoi studentul
             notRepo.deleteByStudent(s4.getId());
             stuRepo.delete(s4.getId());
 
             System.out.println("Studenti dupa: " + stuRepo.findAll().size());
             audit.log("STERGE_STUDENT");                          // actiune 10
 
-            // ============================================================
             // Sumar final
-            // ============================================================
+
             System.out.println("\n=== SUMAR FINAL ===");
             System.out.println("Profesori in DB : " + proRepo.findAll().size());
             System.out.println("Studenti in DB  : " + stuRepo.findAll().size());

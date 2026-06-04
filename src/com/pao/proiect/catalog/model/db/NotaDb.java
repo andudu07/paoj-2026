@@ -1,7 +1,7 @@
 package com.pao.proiect.catalog.model.db;
 
 /**
- * Entitate persistabila — mapeaza tabela `nota`.
+ * Entitate persistabila - mapeaza tabela `nota`
  */
 public class NotaDb {
     private long   id;

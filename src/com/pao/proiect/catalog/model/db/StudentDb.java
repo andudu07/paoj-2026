@@ -1,7 +1,7 @@
 package com.pao.proiect.catalog.model.db;
 
 /**
- * Entitate persistabila — mapeaza tabela `student`.
+ * Entitate persistabila - mapeaza tabela `student`
  */
 public class StudentDb {
     private long   id;

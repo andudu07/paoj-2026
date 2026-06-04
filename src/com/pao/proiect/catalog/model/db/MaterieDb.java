@@ -1,7 +1,7 @@
 package com.pao.proiect.catalog.model.db;
 
 /**
- * Entitate persistabila — mapeaza tabela `materie`.
+ * Entitate persistabila - mapeaza tabela `materie`
  */
 public class MaterieDb {
     private long   id;

@@ -1,9 +1,9 @@
 package com.pao.proiect.catalog.model.db;
 
 /**
- * Entitate persistabila — mapeaza tabela `profesor`.
- * Separata de Profesor (modelul OOP din Etapa I) pentru a nu amesteca
- * logica de business cu persistenta.
+ * Entitate persistabila - mapeaza tabela `profesor`
+ * Separata de Profesor pentru a nu amesteca
+ * logica de business cu persistenta
  */
 public class ProfesorDb {
     private long   id;

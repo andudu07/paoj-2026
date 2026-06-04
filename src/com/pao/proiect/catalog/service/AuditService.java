@@ -7,10 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * AuditService — scrie actiunile sistemului intr-un fisier CSV.
- *
- * Format CSV: action_name,timestamp
- * Exemplu:    ADAUGA_PROFESOR,2024-06-03T10:15:30
+ * AuditService scrie actiunile sistemului intr-un fisier CSV.
  *
  * Thread-safe: metoda log() este synchronized.
  * Singleton: o singura instanta pe durata aplicatiei.
@@ -38,7 +35,7 @@ public class AuditService {
     }
 
     /**
-     * Inregistreaza o actiune in audit.csv.
+     * Inregistreaza o actiune in audit.csv
      *
      * @param actionName numele actiunii (ex: "ADAUGA_STUDENT")
      */
